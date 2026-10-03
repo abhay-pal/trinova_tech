@@ -35,7 +35,7 @@
       "url": "https://abhay-pal.github.io/trinova_tech/",
       "logo": "https://abhay-pal.github.io/trinova_tech/assets/logo-full.png",
       "image": "https://abhay-pal.github.io/trinova_tech/assets/og-image.jpg",
-      "description": "TriNova Tech provides custom software development, POS systems, ERP solutions, business automation, analytics dashboards, websites and IT support for growing businesses."
+      "description": "TriNova Tech provides custom software development, POS systems, ERP solutions, business automation, analytics dashboards, websites and IT support for growing businesses.",\n      "founder": {"@type":"Person","name":"Abhay Pal"},\n      "email":"mailto:abhaypalom@gmail.com",\n      "telephone":"+91-8279860315",\n      "address":{"@type":"PostalAddress","addressLocality":"Gurugram","addressRegion":"Haryana","streetAddress":"Sector 39","addressCountry":"IN"}
     },
     {
       "@type": "WebSite",
@@ -1135,6 +1135,18 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(46,134,224,.45)}70%{box-shadow:0 0 0 9px rgba(46,134,224,0)}100%{box-shadow:0 0 0 0 rgba(46,134,224,0)}}
 @keyframes glowPulse{0%,100%{opacity:.75}50%{opacity:1}}
 
+
+/* ---------- interactive product demo controls ---------- */
+.pos-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;color:var(--ink)}
+.pos-search input::placeholder{color:#8A9CB8}
+.pos-item.is-hidden{display:none}
+.ds-item{width:100%;border:0;text-align:left;font:inherit;cursor:pointer}
+.erp-panel .chip{cursor:pointer;user-select:none}
+.erp-panel .chip:active{transform:translateY(1px)}
+#erpPeriod{cursor:pointer;font:inherit}
+.demo-flash{animation:demoFlash .45s ease}
+@keyframes demoFlash{50%{opacity:.45;transform:translateY(2px)}}
+
 /* ---------- responsive ---------- */
 @media (max-width:1180px){
   .stack-grid{grid-template-columns:repeat(3,1fr)}
@@ -1622,45 +1634,45 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
           </div>
           <div class="pos-body">
             <aside class="pos-cats" aria-hidden="true">
-              <button class="pos-cat active" type="button">All Items</button>
-              <button class="pos-cat" type="button">Popular</button>
-              <button class="pos-cat" type="button">Beverages</button>
-              <button class="pos-cat" type="button">Snacks</button>
-              <button class="pos-cat" type="button">Main Course</button>
-              <button class="pos-cat" type="button">Desserts</button>
+              <button class="pos-cat active" type="button" data-cat="all">All Items</button>
+              <button class="pos-cat" type="button" data-cat="popular">Popular</button>
+              <button class="pos-cat" type="button" data-cat="beverages">Beverages</button>
+              <button class="pos-cat" type="button" data-cat="snacks">Snacks</button>
+              <button class="pos-cat" type="button" data-cat="main">Main Course</button>
+              <button class="pos-cat" type="button" data-cat="desserts">Desserts</button>
             </aside>
             <div class="pos-main">
-              <div class="pos-search"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>Search items… <kbd>F2</kbd></div>
+              <label class="pos-search" for="posSearch"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input id="posSearch" type="search" placeholder="Search items…" autocomplete="off"><kbd>F2</kbd></label>
               <div class="pos-grid" id="posGrid">
-                <button class="pos-item" type="button" data-name="Veg Burger" data-price="149">
+                <button class="pos-item" type="button" data-name="Veg Burger" data-cat="popular snacks" data-price="149">
                   <span class="pi-top"><span class="pi-dot" style="background:#2E86E0">VB</span><span class="pi-tag">Bestseller</span></span>
                   <span class="pi-name">Veg Burger</span><span class="pi-price num">₹149</span>
                 </button>
-                <button class="pos-item" type="button" data-name="Margherita Pizza" data-price="299">
+                <button class="pos-item" type="button" data-name="Margherita Pizza" data-cat="main" data-price="299">
                   <span class="pi-top"><span class="pi-dot" style="background:#E07C24">MP</span></span>
                   <span class="pi-name">Margherita Pizza</span><span class="pi-price num">₹299</span>
                 </button>
-                <button class="pos-item" type="button" data-name="Paneer Wrap" data-price="189">
+                <button class="pos-item" type="button" data-name="Paneer Wrap" data-cat="snacks" data-price="189">
                   <span class="pi-top"><span class="pi-dot" style="background:#12A150">PW</span></span>
                   <span class="pi-name">Paneer Wrap</span><span class="pi-price num">₹189</span>
                 </button>
-                <button class="pos-item" type="button" data-name="Cold Coffee" data-price="99">
+                <button class="pos-item" type="button" data-name="Cold Coffee" data-cat="popular beverages" data-price="99">
                   <span class="pi-top"><span class="pi-dot" style="background:#8E5AC8">CC</span><span class="pi-tag">Bestseller</span></span>
                   <span class="pi-name">Cold Coffee</span><span class="pi-price num">₹99</span>
                 </button>
-                <button class="pos-item" type="button" data-name="Masala Chai" data-price="49">
+                <button class="pos-item" type="button" data-name="Masala Chai" data-cat="beverages" data-price="49">
                   <span class="pi-top"><span class="pi-dot" style="background:#B0730F">MC</span></span>
                   <span class="pi-name">Masala Chai</span><span class="pi-price num">₹49</span>
                 </button>
-                <button class="pos-item" type="button" data-name="Masala Fries" data-price="129">
+                <button class="pos-item" type="button" data-name="Masala Fries" data-cat="snacks" data-price="129">
                   <span class="pi-top"><span class="pi-dot" style="background:#0E9476">MF</span></span>
                   <span class="pi-name">Masala Fries</span><span class="pi-price num">₹129</span>
                 </button>
-                <button class="pos-item" type="button" data-name="Chole Bhature" data-price="169">
+                <button class="pos-item" type="button" data-name="Chole Bhature" data-cat="main" data-price="169">
                   <span class="pi-top"><span class="pi-dot" style="background:#D6455D">CB</span></span>
                   <span class="pi-name">Chole Bhature</span><span class="pi-price num">₹169</span>
                 </button>
-                <button class="pos-item" type="button" data-name="Gulab Jamun" data-price="79">
+                <button class="pos-item" type="button" data-name="Gulab Jamun" data-cat="desserts" data-price="79">
                   <span class="pi-top"><span class="pi-dot" style="background:#2373C0">GJ</span><span class="pi-tag">New</span></span>
                   <span class="pi-name">Gulab Jamun</span><span class="pi-price num">₹79</span>
                 </button>
@@ -1749,36 +1761,36 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
                 <span class="app-live"><i></i>4 branches live</span>
               </div>
               <div class="dash-body">
-                <aside class="dash-side" aria-hidden="true">
+                <aside class="dash-side" aria-label="ERP modules">
                   <div class="ds-brand"><span class="dot"></span>TriNova ERP</div>
-                  <div class="ds-item active"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Dashboard</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg>Sales</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg>Purchase</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Inventory</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Finance</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-file-text"/></svg>Accounting</div>
+                  <button class="ds-item active" type="button" data-erp-module="Dashboard"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Dashboard</button>
+                  <button class="ds-item" type="button" data-erp-module="Sales"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg>Sales</button>
+                  <button class="ds-item" type="button" data-erp-module="Purchase"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg>Purchase</button>
+                  <button class="ds-item" type="button" data-erp-module="Inventory"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Inventory</button>
+                  <button class="ds-item" type="button" data-erp-module="Finance"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Finance</button>
+                  <button class="ds-item" type="button" data-erp-module="Accounting"><svg class="ic" aria-hidden="true"><use href="#i-file-text"/></svg>Accounting</button>
                   <div class="ds-sep">People &amp; CRM</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>CRM</div>
+                  <button class="ds-item" type="button" data-erp-module="CRM"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>CRM</button>
                   <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>HRMS &amp; Payroll</div>
                   <div class="ds-sep">Control</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-file-text"/></svg>Reports</div>
-                  <div class="ds-item"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg>Settings</div>
+                  <button class="ds-item" type="button" data-erp-module="Reports"><svg class="ic" aria-hidden="true"><use href="#i-file-text"/></svg>Reports</button>
+                  <button class="ds-item" type="button" data-erp-module="Settings"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg>Settings</button>
                 </aside>
                 <div class="dash-main">
                   <div class="dm-top">
-                    <div class="dm-title">Good morning, Rahul</div>
-                    <span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>This Month</span>
+                    <div class="dm-title" id="erpTitle">Dashboard Overview</div>
+                    <button class="pill" type="button" id="erpPeriod"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span>This Month</span></button>
                     <span class="dm-avatars" aria-hidden="true"><i></i><i></i><i></i></span>
                   </div>
                   <div class="kpi-row">
-                    <div class="kpi"><small><svg class="ic" aria-hidden="true"><use href="#i-trend"/></svg>Revenue</small><b class="num">₹42.8L <span class="delta up">+12.4%</span></b></div>
-                    <div class="kpi"><small><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg>Orders</small><b class="num">1,286 <span class="delta up">+8.1%</span></b></div>
-                    <div class="kpi"><small><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Outstanding</small><b class="num">₹9.6L <span class="delta warn">6 due</span></b></div>
+                    <div class="kpi" data-erp-kpi="1"><small><svg class="ic" aria-hidden="true"><use href="#i-trend"/></svg>Revenue</small><b class="num">₹42.8L <span class="delta up">+12.4%</span></b></div>
+                    <div class="kpi" data-erp-kpi="2"><small><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg>Orders</small><b class="num">1,286 <span class="delta up">+8.1%</span></b></div>
+                    <div class="kpi" data-erp-kpi="3"><small><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Outstanding</small><b class="num">₹9.6L <span class="delta warn">6 due</span></b></div>
                   </div>
                   <div class="kpi-row">
-                    <div class="kpi"><small><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Inventory</small><b class="num">3,420 <span class="delta warn">46 low</span></b></div>
-                    <div class="kpi"><small><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg>Open POs</small><b class="num">42 <span class="delta up">+5</span></b></div>
-                    <div class="kpi"><small><svg class="ic" aria-hidden="true"><use href="#i-activity"/></svg>Expenses</small><b class="num">₹7.1L <span class="delta down">+3.2%</span></b></div>
+                    <div class="kpi" data-erp-kpi="4"><small><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Inventory</small><b class="num">3,420 <span class="delta warn">46 low</span></b></div>
+                    <div class="kpi" data-erp-kpi="5"><small><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg>Open POs</small><b class="num">42 <span class="delta up">+5</span></b></div>
+                    <div class="kpi" data-erp-kpi="6"><small><svg class="ic" aria-hidden="true"><use href="#i-activity"/></svg>Expenses</small><b class="num">₹7.1L <span class="delta down">+3.2%</span></b></div>
                   </div>
                   <div class="dash-cols">
                     <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
@@ -2491,7 +2503,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
       <article class="price-card reveal" style="--d:0s">
         <h3>Starter Website</h3>
         <p class="pc-for">Suitable for small businesses</p>
-        <div class="price-value"><small>Starting from</small><b class="num">₹ XX,XXX</b></div>
+        <div class="price-value"><small>Starting from</small><b class="num">₹14,999</b></div>
         <div class="pc-list">
           <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Responsive Website</span>
           <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Basic SEO</span>
@@ -2507,7 +2519,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
         <span class="pc-flag">Most Popular</span>
         <h3>Business Website</h3>
         <p class="pc-for">For growing companies that need more</p>
-        <div class="price-value"><small>Starting from</small><b class="num">₹ XX,XXX</b></div>
+        <div class="price-value"><small>Starting from</small><b class="num">₹29,999</b></div>
         <div class="pc-list">
           <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Custom UI</span>
           <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>CMS</span>
@@ -2523,7 +2535,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
       <article class="price-card reveal" style="--d:.16s">
         <h3>Custom Application</h3>
         <p class="pc-for">Scoped to your exact requirements</p>
-        <div class="price-value custom"><b>Custom Quote</b></div>
+        <div class="price-value"><small>Starting from</small><b class="num">₹49,999</b></div>
         <div class="pc-list">
           <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Web Application</span>
           <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>ERP</span>
@@ -2540,21 +2552,21 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
     <div class="quote-band">
       <div class="quote-card reveal" style="--d:0s">
         <span class="q-icon"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg></span>
-        <div><h4>POS Setup</h4><small>Custom quote — hardware, counters &amp; modules</small></div>
+        <div><h4>POS Setup</h4><small>Starting ₹19,999 · software setup for 1 counter</small></div>
         <a class="link-arrow" href="#contact" data-service="POS">Get Quote <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
       </div>
       <div class="quote-card reveal" style="--d:.08s">
         <span class="q-icon"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg></span>
-        <div><h4>ERP Implementation</h4><small>Custom quote — modules, data migration &amp; training</small></div>
+        <div><h4>ERP Implementation</h4><small>Starting ₹74,999 · core modules, setup &amp; training</small></div>
         <a class="link-arrow" href="#contact" data-service="ERP">Get Quote <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
       </div>
       <div class="quote-card reveal" style="--d:.16s">
         <span class="q-icon"><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg></span>
-        <div><h4>Business Automation</h4><small>Custom quote — workflows, integrations &amp; reports</small></div>
+        <div><h4>Business Automation</h4><small>Starting ₹24,999 · workflows, integrations &amp; reports</small></div>
         <a class="link-arrow" href="#contact" data-service="Business Automation">Get Quote <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
       </div>
     </div>
-    <p class="sec-note reveal">Final pricing depends on requirements, integrations and timelines. Share your project details and we'll respond with a clear, itemized quote.</p>
+    <p class="sec-note reveal">Prices are starting points and exclude domain, hosting, paid third-party services and POS hardware unless stated. Final pricing depends on modules, integrations, data migration and timeline.</p>
   </div>
 </section>
 <!-- ==================== TESTIMONIALS ==================== -->
@@ -2633,20 +2645,29 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
         <p class="lead">Tell us about your project — we'll respond with a clear plan, timeline and quote.</p>
       </div>
       <div class="contact-cards">
-        <a class="c-card" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" data-soon-note="Add your WhatsApp number to enable chat">
+        <a class="c-card" href="https://wa.me/918279860315" target="_blank" rel="noopener">
           <span class="c-icon wa"><svg class="ic ic-fill" aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
-          <span class="cc-body"><b>WhatsApp Us</b><span class="cc-sub">+91 XXXXX XXXXX</span></span>
+          <span class="cc-body"><b>WhatsApp Us</b><span class="cc-sub">+91 82798 60315</span></span>
           <span class="link-arrow">Chat Now <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
         </a>
-        <a class="c-card" href="tel:+91XXXXXXXXXX" data-soon-note="Add your phone number to enable calls">
+        <a class="c-card" href="tel:+918279860315">
           <span class="c-icon"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></span>
-          <span class="cc-body"><b>Call Us</b><span class="cc-sub">+91 XXXXX XXXXX</span></span>
+          <span class="cc-body"><b>Call Us</b><span class="cc-sub">+91 82798 60315</span></span>
           <span class="link-arrow">Call Now <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
         </a>
-        <a class="c-card" href="mailto:contact@trinovatech.com" data-soon-note="Add your email address to enable mail">
+        <a class="c-card" href="mailto:abhaypalom@gmail.com">
           <span class="c-icon"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span>
-          <span class="cc-body"><b>Email Us</b><span class="cc-sub">contact@trinovatech.com</span></span>
+          <span class="cc-body"><b>Email Us</b><span class="cc-sub">abhaypalom@gmail.com</span></span>
           <span class="link-arrow">Write to Us <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+        </a>
+        <div class="c-card">
+          <span class="c-icon"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span class="cc-body"><b>Abhay Pal</b><span class="cc-sub">Founder · TriNova Tech</span></span>
+        </div>
+        <a class="c-card" href="https://www.google.com/maps/search/?api=1&query=Sector+39+Gurugram+Haryana" target="_blank" rel="noopener">
+          <span class="c-icon"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg></span>
+          <span class="cc-body"><b>Location</b><span class="cc-sub">Sector 39, Gurugram, Haryana</span></span>
+          <span class="link-arrow">Open Map <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
         </a>
       </div>
       <div class="contact-note">
@@ -2674,7 +2695,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
           </div>
           <div class="f-field">
             <label for="f-phone">Phone <i>*</i></label>
-            <input type="tel" id="f-phone" name="phone" placeholder="+91 XXXXX XXXXX" required autocomplete="tel">
+            <input type="tel" id="f-phone" name="phone" placeholder="+91 82798 60315" required autocomplete="tel">
           </div>
         </div>
         <div class="f-row">
@@ -2782,7 +2803,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
 </footer>
 
 <!-- ==================== FLOATING UI ==================== -->
-<a class="fab" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+<a class="fab" href="https://wa.me/918279860315" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
   <svg class="ic ic-fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>
 </a>
 <button class="totop" type="button" id="toTop" aria-label="Back to top">
@@ -3022,17 +3043,109 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
     });
   }
   var posCats = $('.pos-cats');
+  var posSearch = $('#posSearch');
+  var activePosCat = 'all';
+  function filterPosItems() {
+    var q = posSearch ? posSearch.value.trim().toLowerCase() : '';
+    $('.pos-item').forEach(function (item) {
+      var cats = (item.getAttribute('data-cat') || '').split(' ');
+      var matchesCat = activePosCat === 'all' || cats.indexOf(activePosCat) > -1;
+      var matchesText = !q || (item.getAttribute('data-name') || '').toLowerCase().indexOf(q) > -1;
+      item.classList.toggle('is-hidden', !(matchesCat && matchesText));
+    });
+  }
   if (posCats) {
     posCats.addEventListener('click', function (e) {
       var cat = e.target.closest('.pos-cat');
       if (!cat) return;
-      $$('.pos-cat', posCats).forEach(function (c) { c.classList.remove('active'); });
+      $('.pos-cat', posCats).forEach(function (c) { c.classList.remove('active'); });
       cat.classList.add('active');
+      activePosCat = cat.getAttribute('data-cat') || 'all';
+      filterPosItems();
     });
   }
+  if (posSearch) {
+    posSearch.addEventListener('input', filterPosItems);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'F2') { e.preventDefault(); posSearch.focus(); posSearch.select(); }
+    });
+  }
+  function openPrintPreview(kind) {
+    if (!cart.length) { showToast('Add at least one item before printing.'); return; }
+    var sub = cart.reduce(function (s, it) { return s + it.price * it.qty; }, 0);
+    var tax = sub * 0.05, total = sub + tax;
+    var rows = cart.map(function (it) {
+      return '<tr><td>' + it.name + ' × ' + it.qty + '</td><td style="text-align:right">' + fmt(it.price * it.qty) + '</td></tr>';
+    }).join('');
+    var title = kind === 'token' ? 'KITCHEN TOKEN · #1042' : 'TRINOVA POS · BILL #1042';
+    var extra = kind === 'token' ? '<p><b>Dine-in · Table 4</b></p>' :
+      '<p>Subtotal: ' + fmt(sub) + '<br>GST 5%: ' + fmt(tax) + '<br><b>Total: ' + fmt(total) + '</b></p>';
+    var w = window.open('', '_blank', 'width=420,height=650');
+    if (!w) { showToast('Please allow pop-ups to open the print preview.'); return; }
+    w.document.write('<!doctype html><html><head><title>' + title + '</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h2{margin:0 0 4px}small{color:#555}table{width:100%;border-collapse:collapse;margin:20px 0}td{padding:7px 0;border-bottom:1px dashed #bbb;font-size:13px}p{line-height:1.7}.muted{color:#666;font-size:12px}@media print{button{display:none}}</style></head><body><h2>' + title + '</h2><small>Demo receipt · ' + new Date().toLocaleString('en-IN') + '</small>' + extra + '<table>' + rows + '</table><p class="muted">Generated from the live TriNova POS website demo.</p><button onclick="window.print()">Print</button></body></html>');
+    w.document.close();
+    showToast(kind === 'token' ? 'Kitchen token preview opened.' : 'Bill preview opened.');
+  }
   var billBtn = $('#posBillBtn'), tokenBtn = $('#posTokenBtn');
-  if (billBtn) billBtn.addEventListener('click', function () { showToast('Interactive preview — bill printing works in the deployed TriNova POS app.'); });
-  if (tokenBtn) tokenBtn.addEventListener('click', function () { showToast('Interactive preview — token printing works in the deployed TriNova POS app.'); });
+  if (billBtn) billBtn.addEventListener('click', function () { openPrintPreview('bill'); });
+  if (tokenBtn) tokenBtn.addEventListener('click', function () { openPrintPreview('token'); });
+
+
+  /* ---------- ERP interactive demo ---------- */
+  var ERP_DATA = {
+    'Dashboard': [['Revenue','₹42.8L','+12.4%'],['Orders','1,286','+8.1%'],['Outstanding','₹9.6L','6 due'],['Inventory','3,420','46 low'],['Open POs','42','+5'],['Expenses','₹7.1L','+3.2%']],
+    'Sales': [['Sales','₹42.8L','+12.4%'],['Invoices','1,286','+8.1%'],['Avg Order','₹3,328','+4.0%'],['Customers','684','+31'],['Returns','2.1%','-0.4%'],['Receivable','₹9.6L','6 due']],
+    'Purchase': [['Purchase','₹18.4L','+5.6%'],['Open POs','42','+5'],['Vendors','86','4 new'],['Pending GRN','11','3 urgent'],['Payable','₹6.8L','8 due'],['Savings','₹1.2L','+7.1%']],
+    'Inventory': [['Stock Value','₹31.6L','+2.8%'],['SKUs','3,420','+84'],['Low Stock','46','Needs action'],['Warehouses','4','Live'],['Dead Stock','₹1.9L','-8.0%'],['Stock Turns','5.8x','+0.3x']],
+    'Finance': [['Cash In','₹38.7L','+9.5%'],['Cash Out','₹27.2L','+4.2%'],['Receivable','₹9.6L','6 due'],['Payable','₹6.8L','8 due'],['Expenses','₹7.1L','+3.2%'],['Net Cash','₹11.5L','Healthy']],
+    'Accounting': [['Revenue','₹42.8L','Posted'],['GST Payable','₹3.4L','Due 20th'],['Expenses','₹7.1L','248 entries'],['Journal Entries','612','This month'],['Reconciled','96.8%','+1.4%'],['Open Items','23','Review']],
+    'CRM': [['Leads','286','+18.0%'],['Qualified','94','32.9%'],['Won','38','₹12.4L'],['Follow-ups','47','Today'],['Customers','684','+31'],['Conversion','13.3%','+1.1%']],
+    'HRMS & Payroll': [['Employees','128','+4'],['Present','116','90.6%'],['On Leave','8','Approved'],['Payroll','₹9.8L','Ready'],['Open Roles','6','Hiring'],['Attrition','1.8%','-0.3%']],
+    'Reports': [['Reports','36','Available'],['Scheduled','14','Active'],['Exports','128','This month'],['Dashboards','9','Live'],['Recipients','42','Configured'],['Last Refresh','2 min','Synced']],
+    'Settings': [['Branches','4','Active'],['Users','52','Enabled'],['Roles','8','Configured'],['Integrations','7','Connected'],['Backups','Daily','Healthy'],['Audit Logs','1,842','This month']]
+  };
+  function showErpModule(name) {
+    var data = ERP_DATA[name] || ERP_DATA.Dashboard;
+    var title = $('#erpTitle');
+    if (title) title.textContent = name === 'Dashboard' ? 'Dashboard Overview' : name + ' Overview';
+    $('.ds-item').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-erp-module') === name); });
+    $('.kpi[data-erp-kpi]').forEach(function (box, i) {
+      var row = data[i] || data[0];
+      var small = $('small', box), big = $('b.num', box);
+      if (small) {
+        var svg = $('svg', small);
+        small.innerHTML = '';
+        if (svg) small.appendChild(svg);
+        small.appendChild(document.createTextNode(row[0]));
+      }
+      if (big) big.innerHTML = row[1] + ' <span class="delta ' + ((row[2].indexOf('-') === 0) ? 'down' : 'up') + '">' + row[2] + '</span>';
+      box.classList.remove('demo-flash'); void box.offsetWidth; box.classList.add('demo-flash');
+    });
+    showToast('ERP demo switched to ' + name + '.');
+  }
+  $('.ds-item[data-erp-module]').forEach(function (b) {
+    b.addEventListener('click', function () { showErpModule(b.getAttribute('data-erp-module')); });
+  });
+  $('.erp-panel .chip').forEach(function (chip) {
+    chip.setAttribute('tabindex','0');
+    function useChip() {
+      var name = chip.textContent.trim();
+      var mapped = name === 'HRMS' || name === 'Payroll' ? 'HRMS & Payroll' : name;
+      if (ERP_DATA[mapped]) showErpModule(mapped);
+      else showToast(name + ' is available as a configurable TriNova ERP module.');
+    }
+    chip.addEventListener('click', useChip);
+    chip.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); useChip(); } });
+  });
+  var erpPeriod = $('#erpPeriod');
+  if (erpPeriod) {
+    var periods = ['This Month','This Quarter','This Year'], pi = 0;
+    erpPeriod.addEventListener('click', function () {
+      pi = (pi + 1) % periods.length;
+      $('span', erpPeriod).textContent = periods[pi];
+      showToast('ERP period changed to ' + periods[pi] + '.');
+    });
+  }
 
   /* ---------- project modal ---------- */
   var PROJECTS = {
@@ -3143,8 +3256,17 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
         if (form.reportValidity) form.reportValidity();
         return;
       }
+      var fd = new FormData(form);
+      var subject = 'TriNova Tech Enquiry - ' + (fd.get('service') || 'Project');
+      var body = 'Name: ' + (fd.get('name') || '') +
+        '\nCompany: ' + (fd.get('company') || '') +
+        '\nEmail: ' + (fd.get('email') || '') +
+        '\nPhone: ' + (fd.get('phone') || '') +
+        '\nService: ' + (fd.get('service') || '') +
+        '\n\nProject Details:\n' + (fd.get('message') || fd.get('details') || '');
+      window.location.href = 'mailto:abhaypalom@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       if (formWrap) formWrap.classList.add('sent');
-      showToast('Demo form — connect it to your email service or backend before launch.');
+      showToast('Your email app is opening with the enquiry details.');
     });
   }
 
