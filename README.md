@@ -74,3 +74,8 @@ and remove the `e.preventDefault()` submit handler in the script (or replace it 
 - Semantic HTML5 with one `<h1>`, proper H2/H3 hierarchy, meta description, canonical, Open Graph + Twitter cards.
 - JSON-LD structured data included (Organization, WebSite, SoftwareApplication for TriNova POS and TriNova ERP).
 - `sitemap.xml` + `robots.txt` included; lazy layout, `prefers-reduced-motion` support, keyboard-accessible modal/menu, focus-visible styles.
+
+
+## React Experience Upgrade
+
+The website now uses React + Vite with Framer Motion, Lucide React and Recharts. It is a multi-page product-led site with interactive POS, ERP, analytics, automation, web and mobile demos.
