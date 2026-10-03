@@ -10,6 +10,7 @@ Globe2,Layers3,Mail,MapPin,Menu,MessageCircle,MonitorSmartphone,PackageCheck,Pho
 RefreshCw,Search,Settings2,ShieldCheck,ShoppingCart,Smartphone,Sparkles,Store,Users,WalletCards,Workflow,
 X,Zap,TrendingUp,CircleDollarSign,Headphones,ServerCog,FileText,BriefcaseBusiness,Clock3
 }from'lucide-react';
+import * as SiIcons from 'react-icons/si';
 import'./styles.css';
 
 const C={name:'Abhay Pal',phone:'+91 82798 60315',raw:'918279860315',email:'abhaypalom@gmail.com',loc:'Sector 39, Gurugram, Haryana'};
@@ -52,27 +53,27 @@ const SERVICES=[
 ['IT Consulting & Strategy','Digital transformation, technology audit, architecture, integration planning and vendor guidance.',BriefcaseBusiness,'Consulting']
 ];
 const TECH=[
-{name:'React',slug:'react',group:'Frontend'},
-{name:'Next.js',slug:'nextdotjs',group:'Frontend'},
-{name:'Node.js',slug:'nodedotjs',group:'Backend'},
-{name:'Python',slug:'python',group:'Backend'},
-{name:'PostgreSQL',slug:'postgresql',group:'Database'},
-{name:'MongoDB',slug:'mongodb',group:'Database'},
-{name:'MySQL',slug:'mysql',group:'Database'},
-{name:'AWS',slug:'amazonwebservices',group:'Cloud'},
-{name:'Azure',slug:'microsoftazure',group:'Cloud'},
-{name:'Docker',slug:'docker',group:'DevOps'},
-{name:'Kubernetes',slug:'kubernetes',group:'DevOps'},
-{name:'Power BI',slug:'powerbi',group:'Analytics'},
-{name:'Tableau',slug:'tableau',group:'Analytics'},
-{name:'Looker Studio',slug:'looker',group:'Analytics'},
-{name:'QuickBooks',slug:'quickbooks',group:'Finance'},
-{name:'Xero',slug:'xero',group:'Finance'},
-{name:'Google Analytics',slug:'googleanalytics',group:'Marketing'},
-{name:'n8n',slug:'n8n',group:'Automation'},
-{name:'REST APIs',slug:null,group:'Integration'},
-{name:'GitHub Actions',slug:'githubactions',group:'DevOps'}
-];
+{name:'React',icon:'SiReact',group:'Frontend'},
+{name:'Next.js',icon:'SiNextdotjs',group:'Frontend'},
+{name:'Node.js',icon:'SiNodedotjs',group:'Backend'},
+{name:'Python',icon:'SiPython',group:'Backend'},
+{name:'PostgreSQL',icon:'SiPostgresql',group:'Database'},
+{name:'MongoDB',icon:'SiMongodb',group:'Database'},
+{name:'MySQL',icon:'SiMysql',group:'Database'},
+{name:'AWS',icon:'SiAmazonwebservices',group:'Cloud'},
+{name:'Azure',icon:'SiMicrosoftazure',group:'Cloud'},
+{name:'Docker',icon:'SiDocker',group:'DevOps'},
+{name:'Kubernetes',icon:'SiKubernetes',group:'DevOps'},
+{name:'Power BI',icon:'SiPowerbi',group:'Analytics'},
+{name:'Tableau',icon:'SiTableau',group:'Analytics'},
+{name:'Looker Studio',icon:'SiLooker',group:'Analytics'},
+{name:'QuickBooks',icon:'SiQuickbooks',group:'Finance'},
+{name:'Xero',icon:'SiXero',group:'Finance'},
+{name:'Google Analytics',icon:'SiGoogleanalytics',group:'Marketing'},
+{name:'n8n',icon:'SiN8N',group:'Automation'},
+{name:'REST APIs',icon:null,group:'Integration'},
+{name:'GitHub Actions',icon:'SiGithubactions',group:'DevOps'}
+]
 const INDUSTRIES=['Retail','Restaurants','Healthcare','Logistics','Manufacturing','Hospitality','Distribution','Professional Services','E-commerce'];
 const INDUSTRY_SOLUTIONS={
 Retail:{icon:Store,subtitle:'Unified retail operations',copy:'Connect billing, stock, customers and management reporting across one or many stores.',solutions:['POS & barcode billing','Inventory and stock movement','Customer loyalty & CRM','Multi-store dashboards','Purchase & supplier management','Daily reconciliation'],outcomes:['Faster billing','Lower stock-outs','Better store visibility'],accent:'Retail OS'},
@@ -101,12 +102,39 @@ function TechStackGrid(){
  const list=group==='All'?TECH:TECH.filter(t=>t.group===group);
  return <div className="techExperience">
   <div className="techFilters">{groups.map(g=><button key={g} className={group===g?'active':''} onClick={()=>setGroup(g)}>{g}</button>)}</div>
-  <div className="techLogoGrid">{list.map((t,i)=><motion.div layout {...reveal} whileHover={{y:-7,scale:1.02}} className="techLogoCard" key={t.name}>
-   <div className="techLogoWrap">{t.slug?<img src={'https://cdn.simpleicons.org/'+t.slug} alt={t.name+' logo'} loading="lazy"/>:<Code2/>}</div>
-   <div><b>{t.name}</b><span>{t.group}</span></div><em>{String(i+1).padStart(2,'0')}</em>
-  </motion.div>)}</div>
+  <div className="techLogoGrid">{list.map((t,i)=>{const Icon=t.icon&&SiIcons[t.icon]?SiIcons[t.icon]:Code2;return <motion.div layout {...reveal} whileHover={{y:-7,scale:1.02}} className="techLogoCard" key={t.name}>
+   <div className="techLogoWrap"><Icon className="techRealIcon"/></div>
+   <div className="techCardInfo"><b>{t.name}</b><span>{t.group}</span></div><em>{String(i+1).padStart(2,'0')}</em>
+  </motion.div>})}</div>
  </div>
 }
+
+function TriangleOrbit(){
+ const badges=[
+  ['Secure',ShieldCheck],['Data-led',BarChart3],['Integrated',Workflow],
+  ['Scalable',Layers3],['API-ready',Code2],['Process-first',Settings2]
+ ];
+ return <div className="triangleOrbit">
+  <svg className="triangleGeometry" viewBox="0 0 620 520" aria-hidden="true">
+   <defs>
+    <linearGradient id="triStroke" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#58b4ff"/><stop offset="50%" stopColor="#6d70ff"/><stop offset="100%" stopColor="#22c58b"/></linearGradient>
+   </defs>
+   <path className="triPath outerTri" d="M310 54 L548 438 L72 438 Z"/>
+   <path className="triPath midTri" d="M310 113 L492 408 L128 408 Z"/>
+   <path className="triPath innerTri" d="M310 177 L432 374 L188 374 Z"/>
+  </svg>
+  <div className="triangleCenter">
+   <div className="triangleLogoPlate"><img src="assets/trinova-logo.webp" alt="TriNova Tech"/></div>
+   <strong>Built for<br/>real operations</strong>
+   <small>Business-first engineering</small>
+  </div>
+  <div className="movingBadgeLayer">{badges.map(([label,I],i)=><div className={'movingBadge badge'+(i+1)} key={label}><I/><span>{label}</span></div>)}</div>
+  <div className="triangleMetric one"><b>Process-first</b><span>Workflow before features</span></div>
+  <div className="triangleMetric two"><b>Analytics-first</b><span>KPIs & controls built in</span></div>
+  <div className="triangleMetric three"><b>API-ready</b><span>Connect your systems</span></div>
+ </div>
+}
+
 function IndustriesInteractive(){
  const[active,setActive]=useState('Retail');
  const d=INDUSTRY_SOLUTIONS[active],I=d.icon;
@@ -145,7 +173,7 @@ function Home(){return <Layout>
 ['03','Decision-ready','KPIs, alerts and management dashboards are designed into the workflow.',BarChart3,'Analytics built in'],
 ['04','Owned end-to-end','Discovery, design, development, UAT, rollout and support stay connected.',Headphones,'One accountable team']
 ].map(([n,t,p,I,b])=><motion.div whileHover={{y:-6}} className="whyPoint premiumWhyCard" key={t}><div className="whyCardTop"><span className="whyCardNo">{n}</span><span className="whyCardIcon"><I/></span></div><b>{t}</b><p>{p}</p><em>{b}</em></motion.div>)}</div></motion.div>
-<motion.div {...reveal} className="whyVisual advancedOrbit"><div className="orbitLabel one"><ShieldCheck/>Secure</div><div className="orbitLabel two"><BarChart3/>Data-led</div><div className="orbitLabel three"><Workflow/>Integrated</div><div className="orbitLabel four"><Layers3/>Scalable</div><div className="trustOrb"><div className="orbRing outer"/><div className="orbRing middle"/><div className="orbRing inner"/><div className="orbCore"><img src="assets/logo-mark.png" alt="TriNova"/><strong>Built for<br/>real operations</strong></div></div><div className="trustStats"><div><b>Process-first</b><span>Workflow before features</span></div><div><b>Analytics-first</b><span>KPIs & controls built in</span></div><div><b>API-ready</b><span>Connect the systems you use</span></div></div></motion.div></div></div></section>
+<motion.div {...reveal} className="whyVisual triangleVisual"><TriangleOrbit/></motion.div></div></div></section>
 <section className="section dark"><div className="wrap"><motion.div {...reveal} className="centerHead lightHead"><Eyebrow>Technology stack</Eyebrow><h2>Modern technology. Clean architecture. Better experiences.</h2><p>We choose the stack according to the problem—not because one framework is fashionable.</p></motion.div><TechStackGrid/></div></section>
 
 <section className="section"><div className="wrap"><motion.div {...reveal} className="sectionHead"><Eyebrow>Products</Eyebrow><h2>See the software before you buy the idea.</h2><p>Every major TriNova product has an interactive demo instead of static screenshots.</p></motion.div><div className="productShowcase"><motion.div {...reveal} className="productText"><span className="productIndex">01</span><h3>TriNova POS</h3><p>Fast billing, KOT/token printing, inventory, GST, customers, multi-user access and reporting.</p><Btn href="pos.html" primary>Open POS Demo</Btn></motion.div><motion.div {...reveal}><PosMini/></motion.div></div><div className="productShowcase reverse"><motion.div {...reveal} className="productText"><span className="productIndex">02</span><h3>TriNova ERP</h3><p>Sales, purchase, inventory, finance, CRM, HRMS, branches and approvals in one modular platform.</p><Btn href="erp.html" primary>Open ERP Demo</Btn></motion.div><motion.div {...reveal}><ExecutiveDemo/></motion.div></div></div></section>
