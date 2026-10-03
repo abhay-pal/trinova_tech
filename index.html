@@ -35,7 +35,11 @@
       "url": "https://abhay-pal.github.io/trinova_tech/",
       "logo": "https://abhay-pal.github.io/trinova_tech/assets/logo-full.png",
       "image": "https://abhay-pal.github.io/trinova_tech/assets/og-image.jpg",
-      "description": "TriNova Tech provides custom software development, POS systems, ERP solutions, business automation, analytics dashboards, websites and IT support for growing businesses.",\n      "founder": {"@type":"Person","name":"Abhay Pal"},\n      "email":"mailto:abhaypalom@gmail.com",\n      "telephone":"+91-8279860315",\n      "address":{"@type":"PostalAddress","addressLocality":"Gurugram","addressRegion":"Haryana","streetAddress":"Sector 39","addressCountry":"IN"}
+      "description": "TriNova Tech provides custom software development, POS systems, ERP solutions, business automation, analytics dashboards, websites and IT support for growing businesses.",
+      "founder": {"@type":"Person","name":"Abhay Pal"},
+      "email":"mailto:abhaypalom@gmail.com",
+      "telephone":"+91-8279860315",
+      "address":{"@type":"PostalAddress","addressLocality":"Gurugram","addressRegion":"Haryana","streetAddress":"Sector 39","addressCountry":"IN"}
     },
     {
       "@type": "WebSite",
@@ -1240,16 +1244,45 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
   .stat-row{grid-template-columns:1fr 1fr}
 }
 
+
+/* ---------- premium interaction layer ---------- */
+.scroll-progress{position:fixed;left:0;top:0;height:3px;width:0;z-index:500;background:linear-gradient(90deg,#54A6F0,#2E86E0,#7C5CFC);box-shadow:0 0 16px rgba(46,134,224,.55)}
+.cursor-glow{position:fixed;left:0;top:0;width:420px;height:420px;border-radius:50%;z-index:-1;pointer-events:none;background:radial-gradient(circle,rgba(46,134,224,.12),rgba(84,166,240,.045) 38%,transparent 70%);transform:translate(-50%,-50%);opacity:0;transition:opacity .25s ease}
+@media (pointer:fine){body:hover .cursor-glow{opacity:1}}
+.prod-title-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.live-demo-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:linear-gradient(135deg,rgba(18,161,80,.10),rgba(18,161,80,.05));border:1px solid rgba(18,161,80,.24);color:#0D8650;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.live-demo-badge i{width:7px;height:7px;border-radius:50%;background:#17B26A;box-shadow:0 0 0 0 rgba(23,178,106,.45);animation:livePulse 2s infinite}
+@keyframes livePulse{70%{box-shadow:0 0 0 8px rgba(23,178,106,0)}100%{box-shadow:0 0 0 0 rgba(23,178,106,0)}}
+.tech-marquee{overflow:hidden;border-block:1px solid var(--line);background:linear-gradient(90deg,#F9FCFF,#fff,#F9FCFF)}
+.tech-track{width:max-content;display:flex;align-items:center;gap:18px;padding:15px 0;animation:techDrift 32s linear infinite;font-size:13px;font-weight:750;color:#49627F;letter-spacing:.02em}
+.tech-track span{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #E2ECF8;border-radius:999px;background:#fff;box-shadow:0 6px 16px -12px rgba(13,35,64,.45)}
+.tech-track i{font-style:normal;color:#77A9DD}
+@keyframes techDrift{from{transform:translateX(0)}to{transform:translateX(-28%)}}
+.svc-card,.price-card,.port-card,.app-frame,.quote-card{transform-style:preserve-3d;will-change:transform}
+.svc-card::after,.price-card::after,.port-card::after,.quote-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(84,166,240,.15),transparent 55%)}
+.svc-card:hover::after,.price-card:hover::after,.port-card:hover::after,.quote-card:hover::after{opacity:1}
+.app-frame{transition:transform .28s ease,box-shadow .28s ease}
+.app-frame:hover{box-shadow:0 34px 80px -28px rgba(35,115,192,.35)}
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:-120%;left:-35%;width:38%;height:340%;transform:rotate(22deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transition:left .65s ease}
+.btn-primary:hover::after{left:125%}
+.hero-badge{backdrop-filter:blur(10px)}
+.hero .grad{background-size:180% 180%;animation:gradShift 6s ease infinite}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@media(max-width:760px){.cursor-glow{display:none}.tech-track{animation-duration:40s}.live-demo-badge{font-size:10px}}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   .reveal,.reveal-l,.reveal-r{opacity:1;transform:none}
-  .hero-badge i,.app-live i,.fab::before{animation:none}
+  .hero-badge i,.app-live i,.fab::before,.live-demo-badge i,.tech-track,.hero .grad{animation:none}
 }
 </style>
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ==================== SVG SPRITE ==================== -->
@@ -1381,7 +1414,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
 <section class="hero" id="home">
   <div class="container hero-grid">
     <div class="hero-copy reveal">
-      <span class="hero-badge"><i></i>Build. Automate. Scale.</span>
+      <span class="hero-badge"><i></i><span id="heroRotator">Build. Automate. Scale.</span></span>
       <h1>Technology That Moves Your <span class="grad">Business Forward</span></h1>
       <p class="hero-sub">TriNova Tech builds modern software, business automation systems, POS platforms, ERP solutions, analytics dashboards and reliable IT infrastructure that help businesses operate smarter and scale faster.</p>
       <div class="hero-ctas">
@@ -1522,6 +1555,15 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
     </div>
   </div>
 </section>
+<!-- ==================== TECHNOLOGY MARQUEE ==================== -->
+<section class="tech-marquee" aria-label="Technology stack">
+  <div class="tech-track">
+    <span>React</span><i>•</i><span>Next.js</span><i>•</i><span>Node.js</span><i>•</i><span>Python</span><i>•</i>
+    <span>PostgreSQL</span><i>•</i><span>Power BI</span><i>•</i><span>n8n</span><i>•</i><span>Cloud</span><i>•</i>
+    <span>AI Automation</span><i>•</i><span>API Integrations</span><i>•</i><span>Custom Dashboards</span><i>•</i><span>POS</span><i>•</i><span>ERP</span>
+  </div>
+</section>
+
 <!-- ==================== SERVICES ==================== -->
 <section class="section section-soft" id="services">
   <div class="container">
@@ -1617,7 +1659,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
       <div class="prod-head reveal">
         <div class="ph-left">
           <span class="prod-num">Product 01 <b>·</b> Point of Sale</span>
-          <h3 class="prod-title">TriNova POS</h3>
+          <div class="prod-title-row"><h3 class="prod-title">TriNova POS</h3><span class="live-demo-badge"><i></i>Live Interactive Demo</span></div>
           <span class="prod-tagline"><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg>Smart Point of Sale for Modern Businesses</span>
           <p class="prod-desc">A fast, dependable billing system built for the real pace of busy counters. Print bills and kitchen tokens, take UPI, cash and card payments, track inventory and watch your sales live — even when the internet drops.</p>
         </div>
@@ -1746,7 +1788,7 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
           <div class="prod-head">
             <div class="ph-left">
               <span class="prod-num">Product 02 <b>·</b> Enterprise Platform</span>
-              <h3 class="prod-title">TriNova ERP</h3>
+              <div class="prod-title-row"><h3 class="prod-title">TriNova ERP</h3><span class="live-demo-badge"><i></i>Live Interactive Demo</span></div>
               <span class="prod-tagline"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg>One Platform. Complete Business Control.</span>
               <p class="prod-desc">Sales, purchase, inventory, finance, HR and branches — connected in one system, with real-time visibility for every role in your company.</p>
             </div>
@@ -2855,6 +2897,61 @@ body.nav-open .nav-burger{border-color:var(--blue-3);color:var(--blue)}
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   if (toTop) toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }); });
+
+
+  /* ---------- premium interaction layer ---------- */
+  var scrollProgress = $('#scrollProgress');
+  var cursorGlow = $('#cursorGlow');
+  function updateProgress() {
+    if (!scrollProgress) return;
+    var doc = document.documentElement;
+    var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    scrollProgress.style.width = Math.min(100, Math.max(0, (window.scrollY / max) * 100)) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive:true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  if (cursorGlow && window.matchMedia('(pointer:fine)').matches && !reduced) {
+    window.addEventListener('mousemove', function (e) {
+      cursorGlow.style.left = e.clientX + 'px';
+      cursorGlow.style.top = e.clientY + 'px';
+    }, { passive:true });
+  }
+
+  var heroRotator = $('#heroRotator');
+  if (heroRotator && !reduced) {
+    var heroPhrases = ['Build. Automate. Scale.','POS that moves fast.','ERP that keeps control.','Dashboards that explain.','Automation that saves time.'];
+    var heroPhraseIndex = 0;
+    setInterval(function () {
+      heroPhraseIndex = (heroPhraseIndex + 1) % heroPhrases.length;
+      if (heroRotator.animate) {
+        heroRotator.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-5px)'},{opacity:0,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:520,easing:'ease'});
+        setTimeout(function(){ heroRotator.textContent = heroPhrases[heroPhraseIndex]; },260);
+      } else {
+        heroRotator.textContent = heroPhrases[heroPhraseIndex];
+      }
+    }, 3300);
+  }
+
+  function wireSpotlight(el) {
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+      el.style.setProperty('--my', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+    });
+  }
+  $('.svc-card,.price-card,.port-card,.quote-card').forEach(wireSpotlight);
+
+  if (window.matchMedia('(pointer:fine)').matches && !reduced) {
+    $('.app-frame').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        el.style.transform='perspective(1100px) rotateX('+(-y*3.5).toFixed(2)+'deg) rotateY('+(x*4.5).toFixed(2)+'deg) translateY(-2px)';
+      });
+      el.addEventListener('pointerleave', function(){ el.style.transform=''; });
+    });
+  }
 
   /* ---------- mobile menu ---------- */
   var navToggle = $('#navToggle');
