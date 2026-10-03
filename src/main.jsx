@@ -21,10 +21,10 @@ const COLORS=['#60a5fa','#8b5cf6','#22c55e','#f59e0b'];
 const reveal={initial:{opacity:0,y:24},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.15},transition:{duration:.55,ease:[.22,1,.36,1]}};
 
 function Header(){const[open,setOpen]=useState(false);const p=location.pathname.split('/').pop()||'index.html';return <header className="topbar">
-<a className="brand" href="index.html"><span className="brandMark">T</span><span>TriNova <b>Tech</b></span></a>
+<a className="brand brandImageLink" href="index.html"><img className="brandLogo" src="assets/logo-full.png" alt="TriNova Tech"/></a>
 <button className="menuBtn" onClick={()=>setOpen(!open)} aria-label="menu">{open?<X/>:<Menu/>}</button>
 <nav className={open?'nav open':'nav'}>{NAV.map(([l,h])=><a key={h} className={p===h?'active':''} href={h}>{l}</a>)}<a className="navCta" href="contact.html">Start a Project <ArrowRight size={15}/></a></nav></header>}
-function Footer(){return <><footer className="footer"><div className="footIntro"><a className="brand light" href="index.html"><span className="brandMark">T</span><span>TriNova <b>Tech</b></span></a><p>Software, POS, ERP, analytics, automation and IT solutions built around real business operations.</p></div><div><b>Products</b><a href="pos.html">TriNova POS</a><a href="erp.html">TriNova ERP</a><a href="analytics.html">Analytics & BI</a><a href="automation.html">Automation Studio</a></div><div><b>Services</b><a href="web-development.html">Web Development</a><a href="mobile-apps.html">Mobile Apps</a><a href="services.html">All Services</a></div><div><b>Contact</b><a href={'tel:+'+C.raw}>{C.phone}</a><a href={'mailto:'+C.email}>{C.email}</a><span>{C.loc}</span></div></footer><div className="copyright">© 2026 TriNova Tech · {C.name}</div><a className="wa" href={'https://wa.me/'+C.raw} target="_blank"><MessageCircle/></a></>}
+function Footer(){return <><footer className="footer"><div className="footIntro"><a className="brand footerBrandLogo" href="index.html"><span className="footerLogoPlate"><img className="brandLogo" src="assets/logo-full.png" alt="TriNova Tech"/></span></a><p>Software, POS, ERP, analytics, automation and IT solutions built around real business operations.</p></div><div><b>Products</b><a href="pos.html">TriNova POS</a><a href="erp.html">TriNova ERP</a><a href="analytics.html">Analytics & BI</a><a href="automation.html">Automation Studio</a></div><div><b>Services</b><a href="web-development.html">Web Development</a><a href="mobile-apps.html">Mobile Apps</a><a href="services.html">All Services</a></div><div><b>Contact</b><a href={'tel:+'+C.raw}>{C.phone}</a><a href={'mailto:'+C.email}>{C.email}</a><span>{C.loc}</span></div></footer><div className="copyright">© 2026 TriNova Tech · {C.name}</div><a className="wa" href={'https://wa.me/'+C.raw} target="_blank"><MessageCircle/></a></>}
 function Layout({children}){useEffect(()=>{const b=document.querySelector('.scrollProgress');const f=()=>{const m=document.documentElement.scrollHeight-innerHeight;if(b)b.style.width=(scrollY/Math.max(1,m)*100)+'%'};addEventListener('scroll',f,{passive:true});f();return()=>removeEventListener('scroll',f)},[]);return <><div className="scrollProgress"/><Header/><main>{children}</main><Footer/></>}
 const Eyebrow=({children,icon:Icon=Sparkles})=><span className="eyebrow"><Icon size={13}/>{children}</span>;
 const Btn=({href='contact.html',children,primary=false})=><a className={primary?'btn primary':'btn'} href={href}>{children}<ArrowRight size={16}/></a>;
@@ -51,8 +51,86 @@ const SERVICES=[
 ['ERP & POS Solutions','Sales, purchase, inventory, finance, billing, CRM, HRMS and branch operations in connected systems.',Layers3,'Products'],
 ['IT Consulting & Strategy','Digital transformation, technology audit, architecture, integration planning and vendor guidance.',BriefcaseBusiness,'Consulting']
 ];
-const TECH=['React','Next.js','Node.js','Python','PostgreSQL','MongoDB','MySQL','AWS','Azure','Docker','Kubernetes','Power BI','Tableau','Looker Studio','QuickBooks','Xero','Google Analytics','n8n','REST APIs','GitHub Actions'];
+const TECH=[
+{name:'React',slug:'react',group:'Frontend'},
+{name:'Next.js',slug:'nextdotjs',group:'Frontend'},
+{name:'Node.js',slug:'nodedotjs',group:'Backend'},
+{name:'Python',slug:'python',group:'Backend'},
+{name:'PostgreSQL',slug:'postgresql',group:'Database'},
+{name:'MongoDB',slug:'mongodb',group:'Database'},
+{name:'MySQL',slug:'mysql',group:'Database'},
+{name:'AWS',slug:'amazonwebservices',group:'Cloud'},
+{name:'Azure',slug:'microsoftazure',group:'Cloud'},
+{name:'Docker',slug:'docker',group:'DevOps'},
+{name:'Kubernetes',slug:'kubernetes',group:'DevOps'},
+{name:'Power BI',slug:'powerbi',group:'Analytics'},
+{name:'Tableau',slug:'tableau',group:'Analytics'},
+{name:'Looker Studio',slug:'looker',group:'Analytics'},
+{name:'QuickBooks',slug:'quickbooks',group:'Finance'},
+{name:'Xero',slug:'xero',group:'Finance'},
+{name:'Google Analytics',slug:'googleanalytics',group:'Marketing'},
+{name:'n8n',slug:'n8n',group:'Automation'},
+{name:'REST APIs',slug:null,group:'Integration'},
+{name:'GitHub Actions',slug:'githubactions',group:'DevOps'}
+];
 const INDUSTRIES=['Retail','Restaurants','Healthcare','Logistics','Manufacturing','Hospitality','Distribution','Professional Services','E-commerce'];
+const INDUSTRY_SOLUTIONS={
+Retail:{icon:Store,subtitle:'Unified retail operations',copy:'Connect billing, stock, customers and management reporting across one or many stores.',solutions:['POS & barcode billing','Inventory and stock movement','Customer loyalty & CRM','Multi-store dashboards','Purchase & supplier management','Daily reconciliation'],outcomes:['Faster billing','Lower stock-outs','Better store visibility'],accent:'Retail OS'},
+Restaurants:{icon:ReceiptText,subtitle:'Front counter to kitchen',copy:'Digitize ordering, KOT, delivery, inventory and owner reporting without slowing the counter.',solutions:['KOT / token workflow','Table & takeaway billing','Menu and combo management','Kitchen status tracking','Ingredient inventory','Cashier & outlet analytics'],outcomes:['Faster order flow','Less manual error','Live outlet control'],accent:'Food Ops'},
+Healthcare:{icon:ShieldCheck,subtitle:'Patient and admin workflows',copy:'Build secure operational tools around appointments, billing, pharmacy, records and management reporting.',solutions:['Appointment scheduling','OPD billing workflows','Patient CRM','Pharmacy stock control','Doctor / staff schedules','Management dashboards'],outcomes:['Reduced waiting','Cleaner records','Better resource planning'],accent:'Care Systems'},
+Logistics:{icon:PackageCheck,subtitle:'Operational control tower',copy:'Track movements, exceptions, vendors, branches, billing and KPIs in one operational view.',solutions:['Shipment / trip tracking','Hub & branch MIS','Pendency dashboards','Vendor & fleet workflows','Billing reconciliation','Route / SLA analytics'],outcomes:['Lower pendency','Faster RCA','Better SLA control'],accent:'Control Tower'},
+Manufacturing:{icon:Settings2,subtitle:'Plan, produce and dispatch',copy:'Connect procurement, raw material, production, QA, warehouse and dispatch workflows.',solutions:['Raw material inventory','Purchase planning','Production status','QA / rejection tracking','Warehouse movement','Dispatch dashboard'],outcomes:['Better planning','Lower leakage','Faster dispatch'],accent:'Factory Flow'},
+Hospitality:{icon:Building2,subtitle:'Guest and property operations',copy:'Create connected booking, billing, housekeeping, inventory and management systems.',solutions:['Booking workflow','Guest CRM','Billing & payments','Housekeeping status','Inventory & purchase','Property dashboards'],outcomes:['Better guest flow','Central visibility','Faster service'],accent:'Guest Ops'},
+Distribution:{icon:Boxes,subtitle:'Stock to dealer visibility',copy:'Manage secondary sales, warehouses, dealers, collections and supply movement.',solutions:['Dealer management','Warehouse stock','Order & dispatch','Collections tracking','Salesperson workflow','Territory analytics'],outcomes:['Cleaner stock','Faster dispatch','Improved collections'],accent:'Distribution Hub'},
+'Professional Services':{icon:BriefcaseBusiness,subtitle:'Pipeline to delivery',copy:'Manage leads, projects, client communication, billing, time and profitability.',solutions:['CRM & lead pipeline','Proposal workflow','Project tracking','Client portal','Invoice & collection','Utilization dashboards'],outcomes:['Faster follow-up','Clear ownership','Better profitability'],accent:'Service OS'},
+'E-commerce':{icon:ShoppingCart,subtitle:'Commerce operations layer',copy:'Connect storefront activity with inventory, customer support, order processing and analytics.',solutions:['Order dashboard','Inventory sync','Customer support CRM','Returns workflow','Payment reconciliation','Growth analytics'],outcomes:['Faster fulfilment','Lower mismatch','Better conversion insight'],accent:'Commerce Hub'}
+};
+const PROCESS_STEPS=[
+{n:'01',title:'Discover',icon:Search,time:'2–4 days',copy:'Understand goals, users, current process, data, pain points and success metrics.',output:'Requirement Blueprint'},
+{n:'02',title:'Strategy',icon:Layers3,time:'2–3 days',copy:'Define scope, modules, integrations, milestones, risks and rollout approach.',output:'Solution Plan'},
+{n:'03',title:'Experience Design',icon:Sparkles,time:'3–7 days',copy:'Create information architecture, UI direction and clickable product flows.',output:'Interactive Prototype'},
+{n:'04',title:'Build',icon:Code2,time:'Sprint based',copy:'Develop frontend, backend, database, roles, APIs and integrations in modules.',output:'Working Product'},
+{n:'05',title:'Validate',icon:ShieldCheck,time:'3–7 days',copy:'Run QA, data validation, security checks and user acceptance testing.',output:'Release Candidate'},
+{n:'06',title:'Launch',icon:Cloud,time:'1–3 days',copy:'Deploy, configure production, migrate agreed data and train users.',output:'Live System'},
+{n:'07',title:'Scale',icon:TrendingUp,time:'Ongoing',copy:'Monitor adoption, improve workflows and add new modules as the business grows.',output:'Continuous Improvement'}
+];
+
+function TechStackGrid(){
+ const[group,setGroup]=useState('All');
+ const groups=['All','Frontend','Backend','Database','Cloud','Analytics','Automation','DevOps'];
+ const list=group==='All'?TECH:TECH.filter(t=>t.group===group);
+ return <div className="techExperience">
+  <div className="techFilters">{groups.map(g=><button key={g} className={group===g?'active':''} onClick={()=>setGroup(g)}>{g}</button>)}</div>
+  <div className="techLogoGrid">{list.map((t,i)=><motion.div layout {...reveal} whileHover={{y:-7,scale:1.02}} className="techLogoCard" key={t.name}>
+   <div className="techLogoWrap">{t.slug?<img src={'https://cdn.simpleicons.org/'+t.slug} alt={t.name+' logo'} loading="lazy"/>:<Code2/>}</div>
+   <div><b>{t.name}</b><span>{t.group}</span></div><em>{String(i+1).padStart(2,'0')}</em>
+  </motion.div>)}</div>
+ </div>
+}
+function IndustriesInteractive(){
+ const[active,setActive]=useState('Retail');
+ const d=INDUSTRY_SOLUTIONS[active],I=d.icon;
+ return <div className="industryExperience">
+  <div className="industryRail">{INDUSTRIES.map((x,i)=>{const D=INDUSTRY_SOLUTIONS[x],Icon=D.icon;return <button key={x} className={active===x?'active':''} onClick={()=>setActive(x)}><span className="industryTabIcon"><Icon/></span><span><small>{String(i+1).padStart(2,'0')}</small><b>{x}</b></span><ChevronRight/></button>})}</div>
+  <motion.div key={active} initial={{opacity:0,x:18}} animate={{opacity:1,x:0}} className="industryPanel">
+   <div className="industryPanelTop"><span className="industryHeroIcon"><I/></span><div><span className="industryAccent">{d.accent}</span><h3>{active}</h3><p>{d.subtitle}</p></div></div>
+   <p className="industryCopy">{d.copy}</p>
+   <div className="solutionGrid">{d.solutions.map(x=><span key={x}><CheckCircle2/>{x}</span>)}</div>
+   <div className="outcomeRow">{d.outcomes.map(x=><div key={x}><TrendingUp/><b>{x}</b></div>)}</div>
+   <a className="industryCta" href="contact.html">Discuss {active} solution <ArrowRight/></a>
+  </motion.div>
+ </div>
+}
+function ProcessJourney(){
+ const[active,setActive]=useState(0);const d=PROCESS_STEPS[active],I=d.icon;
+ return <div className="journey">
+  <div className="journeyTrack"><div className="journeyProgress" style={{width:(active/(PROCESS_STEPS.length-1)*100)+'%'}}/>{PROCESS_STEPS.map((s,i)=>{const Icon=s.icon;return <button key={s.title} className={i===active?'active':i<active?'done':''} onClick={()=>setActive(i)}><span><Icon/></span><b>{s.n}</b><small>{s.title}</small></button>})}</div>
+  <motion.div key={d.title} initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} className="journeyDetail">
+   <div className="journeyNumber">{d.n}</div><div className="journeyIcon"><I/></div><div className="journeyCopy"><span>Phase {d.n} · {d.time}</span><h3>{d.title}</h3><p>{d.copy}</p></div><div className="journeyOutput"><small>Key output</small><b>{d.output}</b><CheckCircle2/></div>
+  </motion.div>
+ </div>
+}
+
 
 function Home(){return <Layout>
 <section className="hero"><div className="wrap heroGrid"><motion.div {...reveal}><Eyebrow>Software · Automation · Analytics</Eyebrow><h1>Digital solutions that make businesses <span className="grad">faster, smarter and easier to control.</span></h1><p className="lead">TriNova Tech designs and builds software, websites, POS, ERP, dashboards and automation for growing businesses. Strategy, design, development, analytics and support—under one roof.</p><div className="actions"><Btn href="products.html" primary>Explore Products</Btn><Btn href="services.html">Explore Services</Btn></div><div className="heroTrust"><span><CheckCircle2/>Working product demos</span><span><CheckCircle2/>Business-first approach</span><span><CheckCircle2/>Scalable tech stack</span></div></motion.div><motion.div {...reveal}><ExecutiveDemo/></motion.div></div></section>
@@ -61,14 +139,20 @@ function Home(){return <Layout>
 
 <section className="section soft"><div className="wrap"><motion.div {...reveal} className="sectionHead"><Eyebrow>Our services</Eyebrow><h2>Everything you need to build, automate and scale.</h2><p>Software engineering, analytics, digital management, automation and business systems—structured as one connected service portfolio.</p></motion.div><div className="serviceGrid">{SERVICES.map(([t,p,I],i)=><motion.a {...reveal} href={t.includes('Website')?'web-development.html':t.includes('Mobile')?'mobile-apps.html':t.includes('Automation')?'automation.html':t.includes('Analytics')?'analytics.html':t.includes('ERP')?'products.html':'contact.html'} className="serviceCard" key={t}><span className="serviceNo">0{i+1}</span><div className="iconBox"><I/></div><h3>{t}</h3><p>{p}</p><span className="learn">Learn more <ArrowRight size={15}/></span></motion.a>)}</div></div></section>
 
-<section className="section whySection"><div className="wrap"><div className="whyLayout"><motion.div {...reveal}><Eyebrow>Why TriNova Tech</Eyebrow><h2>Technical depth without losing sight of the business.</h2><p className="lead">Our approach combines product engineering with process understanding, so the final system is useful for users and measurable for management.</p><div className="whyPoints">{[['Enterprise-grade security','Role-based access, secure deployment practices and controlled data flows.',ShieldCheck],['Scalable architecture','Modular systems designed to expand across users, branches and integrations.',Layers3],['Data-driven decisions','Dashboards and KPI layers built into the product instead of added as an afterthought.',BarChart3],['Responsive support','Clear ownership, rollout support and practical issue resolution.',Headphones]].map(([t,p,I])=><div className="whyPoint" key={t}><span><I/></span><div><b>{t}</b><p>{p}</p></div></div>)}</div></motion.div><motion.div {...reveal} className="whyVisual"><div className="trustOrb"><div className="orbRing"/><div className="orbCore"><Sparkles/><strong>Built for<br/>real operations</strong></div></div><div className="trustStats"><div><b>React + APIs</b><span>Modern product stack</span></div><div><b>Analytics-first</b><span>KPIs & reporting built in</span></div><div><b>Modular</b><span>Add capabilities over time</span></div></div></motion.div></div></div></section>
-<section className="section dark"><div className="wrap"><motion.div {...reveal} className="centerHead lightHead"><Eyebrow>Technology stack</Eyebrow><h2>Modern technology. Clean architecture. Better experiences.</h2><p>We choose the stack according to the problem—not because one framework is fashionable.</p></motion.div><div className="techCloud">{TECH.map((x,i)=><motion.span {...reveal} whileHover={{y:-5,scale:1.03}} key={x}>{x}</motion.span>)}</div></div></section>
+<section className="section whySection"><div className="wrap"><div className="whyLayout"><motion.div {...reveal}><Eyebrow>Why TriNova Tech</Eyebrow><h2>Technical depth without losing sight of the business.</h2><p className="lead">Engineering matters, but the system must also make sense to the cashier, operator, manager and founder using it every day.</p><div className="whyPoints creativeWhy">{[
+['01','Secure by design','Role-based access, controlled data flows and production-minded deployment.',ShieldCheck,'Access & control'],
+['02','Built to scale','Add branches, users, modules and integrations without rebuilding the core.',Layers3,'Modular architecture'],
+['03','Decision-ready','KPIs, alerts and management dashboards are designed into the workflow.',BarChart3,'Analytics built in'],
+['04','Owned end-to-end','Discovery, design, development, UAT, rollout and support stay connected.',Headphones,'One accountable team']
+].map(([n,t,p,I,b])=><motion.div whileHover={{y:-6}} className="whyPoint premiumWhyCard" key={t}><div className="whyCardTop"><span className="whyCardNo">{n}</span><span className="whyCardIcon"><I/></span></div><b>{t}</b><p>{p}</p><em>{b}</em></motion.div>)}</div></motion.div>
+<motion.div {...reveal} className="whyVisual advancedOrbit"><div className="orbitLabel one"><ShieldCheck/>Secure</div><div className="orbitLabel two"><BarChart3/>Data-led</div><div className="orbitLabel three"><Workflow/>Integrated</div><div className="orbitLabel four"><Layers3/>Scalable</div><div className="trustOrb"><div className="orbRing outer"/><div className="orbRing middle"/><div className="orbRing inner"/><div className="orbCore"><img src="assets/logo-mark.png" alt="TriNova"/><strong>Built for<br/>real operations</strong></div></div><div className="trustStats"><div><b>Process-first</b><span>Workflow before features</span></div><div><b>Analytics-first</b><span>KPIs & controls built in</span></div><div><b>API-ready</b><span>Connect the systems you use</span></div></div></motion.div></div></div></section>
+<section className="section dark"><div className="wrap"><motion.div {...reveal} className="centerHead lightHead"><Eyebrow>Technology stack</Eyebrow><h2>Modern technology. Clean architecture. Better experiences.</h2><p>We choose the stack according to the problem—not because one framework is fashionable.</p></motion.div><TechStackGrid/></div></section>
 
 <section className="section"><div className="wrap"><motion.div {...reveal} className="sectionHead"><Eyebrow>Products</Eyebrow><h2>See the software before you buy the idea.</h2><p>Every major TriNova product has an interactive demo instead of static screenshots.</p></motion.div><div className="productShowcase"><motion.div {...reveal} className="productText"><span className="productIndex">01</span><h3>TriNova POS</h3><p>Fast billing, KOT/token printing, inventory, GST, customers, multi-user access and reporting.</p><Btn href="pos.html" primary>Open POS Demo</Btn></motion.div><motion.div {...reveal}><PosMini/></motion.div></div><div className="productShowcase reverse"><motion.div {...reveal} className="productText"><span className="productIndex">02</span><h3>TriNova ERP</h3><p>Sales, purchase, inventory, finance, CRM, HRMS, branches and approvals in one modular platform.</p><Btn href="erp.html" primary>Open ERP Demo</Btn></motion.div><motion.div {...reveal}><ExecutiveDemo/></motion.div></div></div></section>
 
-<section className="section soft"><div className="wrap"><motion.div {...reveal} className="centerHead"><Eyebrow>Industries</Eyebrow><h2>Flexible enough for different business models.</h2></motion.div><div className="industryGrid">{INDUSTRIES.map((x,i)=><motion.div {...reveal} className="industry" key={x}><span>{String(i+1).padStart(2,'0')}</span><b>{x}</b><ChevronRight/></motion.div>)}</div></div></section>
+<section className="section soft industriesSection"><div className="wrap"><motion.div {...reveal} className="centerHead"><Eyebrow>Industry Solutions</Eyebrow><h2>Flexible enough for different business models.</h2><p>Choose your domain to see the workflows, systems and outcomes TriNova can build for you.</p></motion.div><IndustriesInteractive/></div></section>
 
-<section className="section"><div className="wrap"><motion.div {...reveal} className="sectionHead"><Eyebrow>How we work</Eyebrow><h2>A clear path from idea to rollout.</h2></motion.div><div className="processGrid">{[['Discover','Understand goals, users, data and pain points.'],['Design','Map workflows and create clickable product concepts.'],['Build','Develop with reusable components, APIs and clean data models.'],['Test','Validate functionality, data, security and user flows.'],['Launch','Deploy, train users and monitor adoption.'],['Improve','Use feedback and data to continuously optimize.']].map((x,i)=><motion.div {...reveal} className="processCard" key={x[0]}><span>0{i+1}</span><h3>{x[0]}</h3><p>{x[1]}</p></motion.div>)}</div></div></section>
+<section className="section processSection"><div className="wrap"><motion.div {...reveal} className="centerHead"><Eyebrow>How We Work</Eyebrow><h2>A clear path from idea to rollout.</h2><p>Click each phase to see what happens, how long it typically takes and what you receive before moving forward.</p></motion.div><ProcessJourney/></div></section>
 
 <section className="section dark"><div className="wrap"><div className="cta"><div><Eyebrow>Have a project?</Eyebrow><h2>Let’s turn your requirement into a working product.</h2><p>POS, ERP, dashboards, websites, mobile apps, automation or custom software.</p></div><div className="actions"><Btn href="contact.html" primary>Start Your Project</Btn><a className="btn ghost" href={'https://wa.me/'+C.raw}>WhatsApp Us</a></div></div></div></section>
 </Layout>}
@@ -85,7 +169,7 @@ function Services(){const detail=[
 ];return <Layout><PageHero eyebrow="Our Expertise" title={<>Deep technical capability with a <span className="grad">business-first approach.</span></>} copy="TriNova combines software engineering, analytics, digital management and technology consulting so clients can work with one accountable partner."/>
 <section className="section"><div className="wrap"><div className="expertiseGrid">{detail.map((x,i)=>{const S=SERVICES.find(s=>s[0]===x[0]);const I=S?S[2]:Code2;return <motion.div {...reveal} className="expertiseCard" key={x[0]}><div className="expertiseTop"><div className="iconBox"><I/></div><span>0{i+1}</span></div><h3>{x[0]}</h3><p>{S?S[1]:''}</p><div className="expertiseList">{x[1].map(y=><span key={y}><CheckCircle2/>{y}</span>)}</div></motion.div>})}</div></div></section>
 <section className="section soft"><div className="wrap"><div className="sectionHead"><Eyebrow>More capabilities</Eyebrow><h2>From first idea to ongoing support.</h2><p>Our wider service layer covers product engineering, mobile, ERP/POS, automation, hosting and operational support.</p></div><div className="serviceGrid">{SERVICES.slice(4).map(([t,p,I],i)=><motion.div {...reveal} className="serviceCard" key={t}><span className="serviceNo">0{i+1}</span><div className="iconBox"><I/></div><h3>{t}</h3><p>{p}</p><div className="chipRow"><span>Consulting</span><span>Design</span><span>Build</span><span>Support</span></div></motion.div>)}</div></div></section>
-<section className="section dark"><div className="wrap"><div className="centerHead lightHead"><Eyebrow>Technology Stack</Eyebrow><h2>Modern tools across frontend, backend, cloud, analytics and operations.</h2><p>Technology is selected according to scalability, cost, security, maintainability and your team’s real needs.</p></div><div className="techCloud">{TECH.map(x=><motion.span {...reveal} whileHover={{y:-5,scale:1.03}} key={x}>{x}</motion.span>)}</div></div></section>
+<section className="section dark"><div className="wrap"><div className="centerHead lightHead"><Eyebrow>Technology Stack</Eyebrow><h2>Modern tools across frontend, backend, cloud, analytics and operations.</h2><p>Technology is selected according to scalability, cost, security, maintainability and your team’s real needs.</p></div><TechStackGrid/></div></section>
 <section className="section"><div className="wrap"><ExecutiveDemo/></div></section></Layout>}
 function Products(){const products=[
 ['TriNova POS','Retail & Food','Fast billing, KOT/token, GST, inventory, customers, payment tracking and owner analytics.','pos.html',Store],
