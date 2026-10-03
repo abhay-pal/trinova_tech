@@ -1,0 +1,27 @@
+
+(()=>{const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
+const p=$('#progress'); const prog=()=>{if(p)p.style.width=(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)*100)+'%'};addEventListener('scroll',prog,{passive:true});prog();
+const mb=$('.menu-btn'),nav=$('.nav'); if(mb)mb.onclick=()=>nav.classList.toggle('open');
+$$('.nav a').forEach(a=>{if(location.pathname.endsWith(a.getAttribute('href')))a.style.color='#267bd1'});
+// generic tabs
+$$('[data-tab-target]').forEach(b=>b.onclick=()=>{const g=b.closest('[data-tabs]');$$('[data-tab-target]',g).forEach(x=>x.classList.remove('active'));b.classList.add('active');const id=b.dataset.tabTarget;$$('[data-tab-panel]',g).forEach(x=>x.hidden=x.dataset.tabPanel!==id)});
+// dashboard demo
+const dashBtns=$$('[data-dash]'); const dashData={sales:[['Revenue','₹42.8L'],['Orders','1,286'],['AOV','₹3,328']],ops:[['On Time','94.8%'],['Open Tasks','128'],['SLA Risk','17']],finance:[['Cash In','₹38.7L'],['Outstanding','₹9.6L'],['Expenses','₹7.1L']]};
+dashBtns.forEach(b=>b.onclick=()=>{dashBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');const d=dashData[b.dataset.dash];$$('[data-kpi]').forEach((k,i)=>{k.querySelector('small').textContent=d[i][0];k.querySelector('b').textContent=d[i][1]})});
+// POS
+let cart=[]; const fmt=n=>'₹'+n.toLocaleString('en-IN'); const render=()=>{const box=$('#cartLines');if(!box)return;box.innerHTML=cart.length?cart.map((x,i)=>'<div class="cart-row"><span><b>'+x.n+'</b><br><span class="qty"><button data-minus="'+i+'">−</button> '+x.q+' <button data-plus="'+i+'">+</button></span></span><b>'+fmt(x.p*x.q)+'</b></div>').join(''):'<p style="color:#7b8fa5;font-size:12px">Tap an item to add it.</p>';const t=cart.reduce((s,x)=>s+x.p*x.q,0);if($('#cartTotal'))$('#cartTotal').textContent=fmt(t);$$('[data-plus]').forEach(b=>b.onclick=()=>{cart[+b.dataset.plus].q++;render()});$$('[data-minus]').forEach(b=>b.onclick=()=>{let i=+b.dataset.minus;cart[i].q--;if(cart[i].q<1)cart.splice(i,1);render()})};
+$$('.pos-item').forEach(b=>b.onclick=()=>{let f=cart.find(x=>x.n===b.dataset.name);if(f)f.q++;else cart.push({n:b.dataset.name,p:+b.dataset.price,q:1});render()});render();
+$$('.pay button').forEach(b=>b.onclick=()=>{$$('.pay button').forEach(x=>x.classList.remove('active'));b.classList.add('active')});
+$$('.pos-cat').forEach(b=>b.onclick=()=>{$$('.pos-cat').forEach(x=>x.classList.remove('active'));b.classList.add('active');let c=b.dataset.cat;$$('.pos-item').forEach(i=>i.style.display=(c==='all'||i.dataset.cat.includes(c))?'block':'none')});
+// ERP
+const erp={Dashboard:[['Revenue','₹42.8L'],['Orders','1,286'],['Stock','3,420']],Sales:[['Sales','₹42.8L'],['Invoices','1,286'],['Customers','684']],Purchase:[['Purchase','₹18.4L'],['Open POs','42'],['Vendors','86']],Inventory:[['Stock Value','₹31.6L'],['SKUs','3,420'],['Low Stock','46']],Finance:[['Cash In','₹38.7L'],['Receivable','₹9.6L'],['Expenses','₹7.1L']],CRM:[['Leads','286'],['Qualified','94'],['Won','38']],HRMS:[['Employees','128'],['Present','116'],['Payroll','₹9.8L']]};
+$$('[data-erp]').forEach(b=>b.onclick=()=>{$$('[data-erp]').forEach(x=>x.classList.remove('active'));b.classList.add('active');let d=erp[b.dataset.erp];$('#erpTitle').textContent=b.dataset.erp+' Overview';$$('[data-erp-kpi]').forEach((k,i)=>{k.querySelector('small').textContent=d[i][0];k.querySelector('b').textContent=d[i][1]})});
+// automation
+const run=$('#runFlow');if(run)run.onclick=async()=>{run.disabled=true;const nodes=$$('.flow-node'),log=$('#flowLog');log.innerHTML='';nodes.forEach(n=>n.classList.remove('running','done'));for(let i=0;i<nodes.length;i++){nodes[i].classList.add('running');log.innerHTML+='<div>› '+nodes[i].dataset.log+'...</div>';await new Promise(r=>setTimeout(r,520));nodes[i].classList.remove('running');nodes[i].classList.add('done');log.innerHTML+='<div style="color:#67cf9f">✓ completed</div>'}run.disabled=false};
+// devices
+$$('[data-device]').forEach(b=>b.onclick=()=>{$$('[data-device]').forEach(x=>x.classList.remove('active'));b.classList.add('active');const br=$('#browser');br.className='browser '+b.dataset.device});
+// phone
+$$('[data-phone]').forEach(b=>b.onclick=()=>{$$('[data-phone]').forEach(x=>x.classList.remove('active'));b.classList.add('active');const v=$('#phoneView');const n=b.dataset.phone;v.innerHTML=n==='Home'?'<h3>Good morning 👋</h3><div class="kpi"><small>Today sales</small><b>₹84,250</b></div><div class="chart"></div>':n==='Orders'?'<h3>Orders</h3><table class="table"><tr><td>#1048</td><td>₹1,240</td><td><span class="status">Paid</span></td></tr><tr><td>#1047</td><td>₹860</td><td><span class="status">Paid</span></td></tr></table>':n==='Analytics'?'<h3>Analytics</h3><div class="kpis"><div class="kpi"><small>Users</small><b>8.4K</b></div><div class="kpi"><small>CVR</small><b>4.8%</b></div><div class="kpi"><small>GMV</small><b>₹9.2L</b></div></div>':'<h3>Business Profile</h3><p>TriNova Retail Pvt Ltd</p><p>4 branches · 12 users</p>'});
+// pricing calculator
+const calc=()=>{const base={website:14999,pos:19999,erp:74999,automation:24999};const type=$('#qtype'),users=$('#qusers'),mods=$('#qmods'),out=$('#qresult');if(!type||!out)return;let v=base[type.value]+(Math.max(1,+users.value)-1)*1200+(+mods.value)*5000;out.textContent='₹'+v.toLocaleString('en-IN')+'+'};['#qtype','#qusers','#qmods'].forEach(s=>{const e=$(s);if(e)e.oninput=calc});calc();
+})();
