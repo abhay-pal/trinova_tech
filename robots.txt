@@ -1,0 +1,7 @@
+# TriNova Tech — robots.txt
+# Update the Sitemap URL to your live domain before deploying
+
+User-agent: *
+Allow: /
+
+Sitemap: https://abhay-pal.github.io/trinova_tech/sitemap.xml
