@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Update the domain below to your live domain before deploying -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://abhay-pal.github.io/trinova_tech/</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/services.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/products.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/pos.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/erp.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/analytics.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/automation.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/web-development.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/mobile-apps.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/pricing.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/about.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhay-pal.github.io/trinova_tech/contact.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
