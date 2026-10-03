@@ -68,3 +68,20 @@
  .triangleLogoPlate{width:45px;height:45px}.triangleLogoPlate img{max-width:39px;max-height:39px}
  .triangleCenter strong{font-size:14px}.triangleMetric{width:calc(33.333% - 10px);padding:9px 8px;bottom:15px}.triangleMetric.one{left:6px}.triangleMetric.three{right:6px}.triangleMetric b{font-size:8px}.triangleMetric span{display:none}
 }
+
+/* v6: persistent navbar brand + guaranteed key technology logos */
+.brandImageLink{display:flex!important;align-items:center!important;gap:10px!important;min-width:max-content}
+.brandMarkImg{width:48px;height:48px;object-fit:contain;display:block;filter:drop-shadow(0 8px 14px rgba(12,74,145,.12))}
+.brandWord{font-size:19px;font-weight:900;letter-spacing:-.02em;color:#0b2442;line-height:1}
+.brandWord b{color:#1686eb}
+.footerBrandLogo .brandLogo{height:70px!important;width:auto!important}
+.brandSvg{width:34px;height:34px;display:block}
+.awsSvg{width:39px;height:30px}
+.azureSvg{width:34px;height:34px}
+.powerSvg{width:31px;height:31px}
+.tableauSvg{width:33px;height:33px}
+.techLogoWrap .brandSvg{max-width:38px;max-height:38px}
+@media(max-width:680px){
+ .brandMarkImg{width:42px;height:42px}
+ .brandWord{font-size:17px}
+}
