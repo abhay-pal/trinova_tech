@@ -22,7 +22,7 @@ const COLORS=['#60a5fa','#8b5cf6','#22c55e','#f59e0b'];
 const reveal={initial:{opacity:0,y:24},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.15},transition:{duration:.55,ease:[.22,1,.36,1]}};
 
 function Header(){const[open,setOpen]=useState(false);const p=location.pathname.split('/').pop()||'index.html';return <header className="topbar">
-<a className="brand brandImageLink" href="index.html"><img className="brandLogo" src="assets/trinova-logo.webp" alt="TriNova Tech"/></a>
+<a className="brand brandImageLink" href="index.html"><img className="brandMarkImg" src="assets/logo-mark.png" alt="TriNova Tech"/><span className="brandWord">TriNova <b>Tech</b></span></a>
 <button className="menuBtn" onClick={()=>setOpen(!open)} aria-label="menu">{open?<X/>:<Menu/>}</button>
 <nav className={open?'nav open':'nav'}>{NAV.map(([l,h])=><a key={h} className={p===h?'active':''} href={h}>{l}</a>)}<a className="navCta" href="contact.html">Start a Project <ArrowRight size={15}/></a></nav></header>}
 function Footer(){return <><footer className="footer"><div className="footIntro"><a className="brand footerBrandLogo" href="index.html"><span className="footerLogoPlate"><img className="brandLogo" src="assets/trinova-logo.webp" alt="TriNova Tech"/></span></a><p>Software, POS, ERP, analytics, automation and IT solutions built around real business operations.</p></div><div><b>Products</b><a href="pos.html">TriNova POS</a><a href="erp.html">TriNova ERP</a><a href="analytics.html">Analytics & BI</a><a href="automation.html">Automation Studio</a></div><div><b>Services</b><a href="web-development.html">Web Development</a><a href="mobile-apps.html">Mobile Apps</a><a href="services.html">All Services</a></div><div><b>Contact</b><a href={'tel:+'+C.raw}>{C.phone}</a><a href={'mailto:'+C.email}>{C.email}</a><span>{C.loc}</span></div></footer><div className="copyright">© 2026 TriNova Tech · {C.name}</div><a className="wa" href={'https://wa.me/'+C.raw} target="_blank"><MessageCircle/></a></>}
@@ -96,13 +96,19 @@ const PROCESS_STEPS=[
 {n:'07',title:'Scale',icon:TrendingUp,time:'Ongoing',copy:'Monitor adoption, improve workflows and add new modules as the business grows.',output:'Continuous Improvement'}
 ];
 
+function AwsLogo(){return <svg className="brandSvg awsSvg" viewBox="0 0 64 48" aria-label="AWS"><text x="7" y="27" fontSize="22" fontWeight="800" fill="#232f3e">aws</text><path d="M10 34c13 8 29 9 43 1" fill="none" stroke="#ff9900" strokeWidth="3" strokeLinecap="round"/><path d="M48 34l6 1-3 5" fill="none" stroke="#ff9900" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+function AzureLogo(){return <svg className="brandSvg azureSvg" viewBox="0 0 64 64" aria-label="Microsoft Azure"><path d="M12 50L27 10h14L24 50z" fill="#0089D6"/><path d="M31 50l10-25 15 25z" fill="#0078D4"/><path d="M24 50l9-15 8 15z" fill="#50E6FF"/></svg>}
+function PowerBILogo(){return <svg className="brandSvg powerSvg" viewBox="0 0 64 64" aria-label="Power BI"><rect x="11" y="28" width="10" height="25" rx="3" fill="#F2C811"/><rect x="24" y="19" width="10" height="34" rx="3" fill="#F2C811"/><rect x="37" y="11" width="10" height="42" rx="3" fill="#F2C811"/><rect x="50" y="4" width="5" height="49" rx="2.5" fill="#D9B300"/></svg>}
+function TableauLogo(){return <svg className="brandSvg tableauSvg" viewBox="0 0 64 64" aria-label="Tableau"><g fill="#E8762D"><rect x="29" y="7" width="6" height="14"/><rect x="25" y="11" width="14" height="6"/><rect x="29" y="43" width="6" height="14"/><rect x="25" y="47" width="14" height="6"/></g><g fill="#5B82B4"><rect x="7" y="29" width="14" height="6"/><rect x="11" y="25" width="6" height="14"/><rect x="43" y="29" width="14" height="6"/><rect x="47" y="25" width="6" height="14"/></g><g fill="#4E79A7"><rect x="29" y="25" width="6" height="14"/><rect x="25" y="29" width="14" height="6"/></g><g fill="#F28E2B"><rect x="16" y="16" width="5" height="11"/><rect x="13" y="19" width="11" height="5"/><rect x="43" y="40" width="5" height="11"/><rect x="40" y="43" width="11" height="5"/></g></svg>}
+const SPECIAL_TECH_LOGOS={'AWS':AwsLogo,'Azure':AzureLogo,'Power BI':PowerBILogo,'Tableau':TableauLogo};
+
 function TechStackGrid(){
  const[group,setGroup]=useState('All');
  const groups=['All','Frontend','Backend','Database','Cloud','Analytics','Automation','DevOps'];
  const list=group==='All'?TECH:TECH.filter(t=>t.group===group);
  return <div className="techExperience">
   <div className="techFilters">{groups.map(g=><button key={g} className={group===g?'active':''} onClick={()=>setGroup(g)}>{g}</button>)}</div>
-  <div className="techLogoGrid">{list.map((t,i)=>{const Icon=t.icon&&SiIcons[t.icon]?SiIcons[t.icon]:Code2;return <motion.div layout {...reveal} whileHover={{y:-7,scale:1.02}} className="techLogoCard" key={t.name}>
+  <div className="techLogoGrid">{list.map((t,i)=>{const Icon=SPECIAL_TECH_LOGOS[t.name]||(t.icon&&SiIcons[t.icon]?SiIcons[t.icon]:Code2);return <motion.div layout {...reveal} whileHover={{y:-7,scale:1.02}} className="techLogoCard" key={t.name}>
    <div className="techLogoWrap"><Icon className="techRealIcon"/></div>
    <div className="techCardInfo"><b>{t.name}</b><span>{t.group}</span></div><em>{String(i+1).padStart(2,'0')}</em>
   </motion.div>})}</div>
