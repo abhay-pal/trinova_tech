@@ -130,9 +130,7 @@ function TriangleOrbit(){
    <path className="triPath innerTri" d="M310 177 L432 374 L188 374 Z"/>
   </svg>
   <div className="triangleCenter">
-   <div className="triangleLogoPlate"><img src="assets/logo-mark.png" alt="TriNova Tech"/></div>
-   <strong>Built for<br/>real operations</strong>
-   <small>Business-first engineering</small>
+   <img className="triangleCenterImage" src="assets/logo-full.png" alt="TriNova Tech"/>
   </div>
   <div className="movingBadgeLayer">{badges.map(([label,I],i)=><div className={'movingBadge badge'+(i+1)} key={label}><I/><span>{label}</span></div>)}</div>
   <div className="triangleMetric one"><b>Process-first</b><span>Workflow before features</span></div>
